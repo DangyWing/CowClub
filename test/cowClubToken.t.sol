@@ -4,7 +4,6 @@ pragma solidity ^0.8.16;
 import "@forge-std/Test.sol";
 import { GIGADRIP20 } from "../src/GIGADRIP20.sol";
 import { cowClubToken } from "../src/cowClubToken.sol";
-import { MockcowClubToken } from "./mocks/MockcowClubToken.sol";
 
 contract cowClubTokenTest is DSTest {
   cowClubToken token;
@@ -527,5 +526,12 @@ contract cowClubTokenTest is DSTest {
 
     assertEq(token.totalSupply(), 80 + 50 * 3);
     assertEq(token.balanceOf(user1), 80 + 50 * 3);
+  }
+
+  function testSetStakingAddress() public {
+    address initialStakingAddress = token.staking();
+
+    token.setStakingAddress(address(0xdead));
+    assertEq(token.staking(), address(0xdead));
   }
 }

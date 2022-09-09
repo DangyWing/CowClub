@@ -112,8 +112,6 @@ contract CCTest is Test {
   }
 
   function testWithdrawalWorksAsOwner() public {
-    // Mint an NFT, sending eth to the contract
-    Receiver receiver = new Receiver();
     address payable payee = payable(address(0x1337));
     uint256 priorPayeeBalance = payee.balance;
     cc.mintNft{ value: cc.price() }(1);
@@ -159,7 +157,7 @@ contract Receiver {
     address from,
     uint256 id,
     bytes calldata data
-  ) external returns (bytes4) {
+  ) external pure returns (bytes4) {
     return this.onERC721Received.selector;
   }
 }
